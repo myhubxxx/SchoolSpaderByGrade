@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="SchoolSpaderByGrade"
+  id="myeclipse.1447926836725"
+  context-root="/SchoolSpaderByGrade"
+  j2ee-spec="5.0"
+  archive="SchoolSpaderByGrade.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
