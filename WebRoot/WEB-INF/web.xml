@@ -4,7 +4,36 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-  <display-name></display-name>	
+  <display-name></display-name>
+  
+  
+  <servlet>
+    <servlet-name>ControlServlet</servlet-name>
+    <servlet-class>cn.web.Servlet.ControlServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ControlServlet</servlet-name>
+    <url-pattern>/ControlServlet</url-pattern>
+  </servlet-mapping>	
+  
+    <servlet>
+    <servlet-name>VerifyCodeServlet</servlet-name>
+    <servlet-class>cn.itcast.vcode.servlet.VerifyCodeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>VerifyCodeServlet</servlet-name>
+    <url-pattern>/VerifyCodeServlet</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <servlet-name>InitServlet</servlet-name>
+    <servlet-class>cn.web.Servlet.InitServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InitServlet</servlet-name>
+    <url-pattern>/InitServlet</url-pattern>
+  </servlet-mapping>	
+  
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
