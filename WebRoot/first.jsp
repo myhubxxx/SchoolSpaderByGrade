@@ -34,6 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	指定查询选项  : <select name="operate">
     				<option value="kebiao">课表查询</option>
     				<option value="chengji">成绩查询</option>
+    				<option value="yearchengji">学期成绩</option>
     			</select>
     			
 		<br/><br/>

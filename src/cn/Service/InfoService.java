@@ -20,6 +20,13 @@ public class InfoService {
 		
 		return new StringBuilder(HttpClientUtil.doPost(lessonUrl));
 	}
+	// get the every year/Team grade
+	public StringBuilder getTeamGrade(){
+		
+		String teamGradeUrl = PropertiesUtil.getValue("YearGradeUrl");
+		
+		return  new StringBuilder(HttpClientUtil.doPost(teamGradeUrl));
+	}
 	
 	
 
