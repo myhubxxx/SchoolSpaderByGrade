@@ -27,9 +27,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<br/><br/><br/>
     	<strong style=color:red>${requestScope.message }</strong>
     <form method="post" action="ControlServlet" >
-    	学号 : <input type="text" name="usernumber" value="201305020346" />
+    	学号 : <input type="text" name="usernumber" value="" />
     	<br/><br/>
-    	密码 : <input type="password" name="password" value="ZENYAN" />
+    	密码 : <input type="password" name="password" value="" />
     	<br/><br/>
     	指定查询选项  : <select name="operate">
     				<option value="kebiao">课表查询</option>
