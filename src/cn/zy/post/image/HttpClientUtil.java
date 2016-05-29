@@ -1,0 +1,137 @@
+package cn.zy.post.image;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+
+public class HttpClientUtil {
+
+	private static CloseableHttpClient httpClient = null;
+	
+	private HttpClientUtil(){}
+	
+	/**
+	 * ����HttpClientʵ��
+	 * @return
+	 */
+	public static CloseableHttpClient getInstance(){
+		if (httpClient == null) {
+			httpClient = HttpClients.createDefault();
+		}
+		return httpClient;
+	}
+	
+	/**
+	 * 设置httpclient 连接时延
+	 * @return
+	 */
+	private static RequestConfig requestConfig(){
+		return RequestConfig.custom().setSocketTimeout(5000).setConnectTimeout(5000).build();
+	}
+	
+	/**
+	 * get �����ӵ�ַ
+	 * @param url
+	 * @return
+	 */
+	public static String doGet(String url){
+		HttpGet get = new HttpGet(url);
+		get.setConfig(requestConfig());
+		CloseableHttpResponse response = null;
+		try {
+			response = HttpClientUtil.getInstance().execute(get);
+			
+			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+				return EntityUtils.toString(response.getEntity());
+			} else {
+				return "远程服务器返回码 : " + response.getStatusLine().getStatusCode();
+			}
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			get.abort();
+		} catch (IOException e) {
+			e.printStackTrace();
+			get.abort();
+		} finally {
+			try {
+				response.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * post请求(无参)
+	 * @param url
+	 * @return
+	 */
+	public static String doPost(String url){
+		return doPost(url, null);
+	}
+	
+	/**
+	 * post请求(有参)
+	 * @param url
+	 * @param param
+	 * @return
+	 */
+	public static String doPost(String url, Map<String, String> param){
+		HttpPost post = new HttpPost(url);
+		CloseableHttpResponse response = null;
+		try {
+			post.setConfig(requestConfig());
+			
+			HttpEntity entity = (param == null) ? null : new UrlEncodedFormEntity(params(param));
+			post.setEntity(entity);
+			response = HttpClientUtil.getInstance().execute(post);
+			
+			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+				return EntityUtils.toString(response.getEntity());
+			} else {
+				return "远程服务器返回码 : " + response.getStatusLine().getStatusCode();
+			}
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			post.abort();
+		} catch (IOException e) {
+			e.printStackTrace();
+			post.abort();
+		} finally {
+			try {
+				response.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * 设置post 请求参数
+	 * @param datas
+	 * @return
+	 */
+	private static List<BasicNameValuePair> params(Map<String, String> datas){
+		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+		for (String key : datas.keySet()) {
+			params.add(new BasicNameValuePair(key, datas.get(key)));
+		}
+		return params;
+	}
+}
